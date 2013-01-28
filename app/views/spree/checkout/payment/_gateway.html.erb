@@ -1,0 +1,52 @@
+<% if !payment_method.options[:client_side_encryption_key].present? %>
+
+  <p> Please <a href="/admin/payment_methods">set</a> the Braintree client side encryption key. </p>
+
+<% else %>
+
+<% content_for :head do %>
+  <%= javascript_include_tag 'braintree-1.1.1.min.js' %>
+<% end %>
+
+<script type="text/javascript">
+  $(function () {
+      var braintree = Braintree.create("<%= payment_method.options[:client_side_encryption_key] %>");
+      var form = $("#checkout_form_payment");
+
+      form.submit(function (e) {
+        $("#encrypted_card_number").val(braintree.encrypt($("#card_number").val()));
+        $("#encrypted_card_code").val(braintree.encrypt($("#card_code").val()));
+        return true;
+        });
+      });
+</script>
+
+<%= image_tag 'credit_cards/credit_card.gif', :id => 'credit-card-image' %>
+<% param_prefix = "payment_source[#{payment_method.id}]" %>
+
+<p class="field" data-hook="card_number">
+  <%= label_tag nil, t(:card_number) %><span class="required">*</span><br />
+  <% options_hash = Rails.env.production? ? {:autocomplete => 'off'} : {} %>
+  <%= text_field_tag "", '', options_hash.merge(:id => 'card_number', :class => 'required', :size => 19, :maxlength => 19, :autocomplete => "off") %>
+  <%= hidden_field_tag "#{param_prefix}[number]", "", :id => "encrypted_card_number" %>
+  &nbsp;
+  <span id="card_type" style="display:none;">
+    ( <span id="looks_like" ><%= t(:card_type_is) %> <span id="type"></span></span>
+      <span id="unrecognized"><%= t(:unrecognized_card_type) %></span>
+    )
+  </span>
+</p>
+<p class="field" data-hook="card_expiration">
+  <%= label_tag nil, t(:expiration) %><span class="required">*</span><br />
+  <%= select_month(Date.today, { :prefix => param_prefix, :field_name => 'month', :use_month_numbers => true }, :class => 'required') %>
+  <%= select_year(Date.today, { :prefix => param_prefix, :field_name => 'year', :start_year => Date.today.year, :end_year => Date.today.year + 15 }, :class => 'required') %>
+</p>
+<p class="field" data-hook="card_code">
+  <%= label_tag nil, t(:card_code) %><span class="required">*</span><br />
+  <%= text_field_tag "", '', options_hash.merge(:id => 'card_code', :class => 'required', :size => 5) %>
+  <%= hidden_field_tag "#{param_prefix}[verification_value]", "", :id => "encrypted_card_code" %>
+  <%= link_to "(#{t(:whats_this)})", spree.content_path('cvv'), :target => '_blank', :onclick => "window.open(this.href,'cvv_info','left=20,top=20,width=500,height=500,toolbar=0,resizable=0,scrollbars=1');return false", "data-hook" => "cvv_link" %>
+</p>
+<%= hidden_field param_prefix, 'first_name', :value => @order.billing_firstname %>
+<%= hidden_field param_prefix, 'last_name', :value => @order.billing_lastname %>
+<% end %>
