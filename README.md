@@ -21,6 +21,8 @@ Example
 
 Just add spree_braintree_cse to your Gemfile and encryption will be enabled.
 
+       gem 'spree_braintree_cse'
+
 
 Copyright (c) 2013 [Doug Bradbury], released under the New BSD License
 
