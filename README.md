@@ -19,16 +19,23 @@ In most cases, this encryption is sufficient to obtain PCI compliance.
 Example
 =======
 
-Just add spree_braintree_cse to your Gemfile and encryption will be enabled
+Add spree_gateway and spree_braintree_cse to your Gemfile and encryption will be enabled
 
        gem 'spree_braintree_cse'
+       gem 'spree_gateway', :git => "https://github.com/spree/spree_gateway.git", :branch => '1-3-stable'
 
 You may have to add the following to your rails config.
 
        config.assets.precompile += %w( store/braintree-1.1.1.min.js)
+
+Dependencies
+============
+
+This gem depends on spree 1.3.x and [spree_gateway][3]
 
 
 Copyright (c) 2013 [Doug Bradbury], released under the New BSD License
 
 [1]: https://www.braintreepayments.com/braintrust/client-side-encryption
 [2]: https://www.braintreepayments.com/docs/javascript/overview/client_side_encryption
+[3]: https://github.com/spree/spree_gateway
