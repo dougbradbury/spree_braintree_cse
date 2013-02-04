@@ -19,10 +19,9 @@ In most cases, this encryption is sufficient to obtain PCI compliance.
 Example
 =======
 
-Just add spree_braintree_cse to your Gemfile and encryption will be enabled. Since rubygems.org
-is not allowing new gems to be posted at the moment, use the git url for this gem.
+Just add spree_braintree_cse to your Gemfile and encryption will be enabled
 
-       gem 'spree_braintree_cse', :git => 'https://github.com/dougbradbury/spree_braintree_cse.git'
+       gem 'spree_braintree_cse'
 
 You may have to add the following to your rails config.
 
