@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_braintree_cse'
-  s.version     = '1.3.1.2'
+  s.version     = '1.3.2'
   s.summary     = 'Enable Client Side Encryption for Braintree payments processing with Spree.'
   s.description = 'Using CSE will enable your application to acheive PCI certification.'
   s.required_ruby_version = '>= 1.8.7'
