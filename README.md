@@ -22,7 +22,7 @@ Example
 Add spree_gateway and spree_braintree_cse to your Gemfile and encryption will be enabled
 
        gem 'spree_braintree_cse'
-       gem 'spree_gateway', :git => "https://github.com/spree/spree_gateway.git", :branch => '1-3-stable'
+       gem 'spree_gateway', :git => "https://github.com/spree/spree_gateway.git", :branch => '2-1-stable'
 
 You may have to add the following to your rails config.
 
@@ -31,7 +31,7 @@ You may have to add the following to your rails config.
 Dependencies
 ============
 
-This gem depends on spree 1.3.x and [spree_gateway][3]
+This gem depends on spree 2.1.x and [spree_gateway][3]
 
 
 Copyright (c) 2013 [Doug Bradbury], released under the New BSD License
