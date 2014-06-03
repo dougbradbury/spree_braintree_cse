@@ -1,0 +1,11 @@
+language: ruby
+
+rvm:
+  - 2.0.0
+
+before_script:
+  - bundle exec rake test_app
+  - cp spec/support/devise.txt spec/dummy/config/initializers/devise.rb
+
+script: "DISPLAY=:99.0 bundle exec rake spec"
+
